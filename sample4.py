@@ -24,6 +24,7 @@ while(True):
             #b=pd.DataFrame(b)
 
             #list.to_csv(csvFile,sep=',')
+        page_counter+=1
     except:
         break
 
