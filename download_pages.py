@@ -16,6 +16,7 @@ urls=fp.readlines()
 for url in urls:
 	driver.get(url)
 	page = driver.page_source
+	page=page.encode('ascii','ignore')
 	file_ = open( url.split('/')[-2]+'_page.html', 'w')
 	file_.write(page)
 	file_.close()
