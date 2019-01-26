@@ -30,8 +30,11 @@ for url in urls:
 		
 		
 		#*******************sam additional codes
-		#expiry=driver.find_element_by_xpath("//p[@class='undefined-sticky-wrapper']")
-		#tmp.append(expiry[0].text)
+		#try:
+		#	expiry=driver.find_element_by_xpath("//p[@class='undefined-sticky-wrapper']")
+		#	tmp.append(expiry[0].text)
+		#except:
+		#	tmp.append('')
 
 		#teacher_img=driver.find_element_by_xpath("//a[@class='classroom-photo js-classroom-photo-format-retina-bg']")
 		#tmp.append(teacher_img[0].text)
