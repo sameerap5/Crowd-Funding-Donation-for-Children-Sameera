@@ -34,7 +34,16 @@ for url in urls:
 		#	expiry=driver.find_element_by_xpath("//p[@class='undefined-sticky-wrapper']")
 		#	tmp.append(expiry[0].text)
 		#except:
-		#	tmp.append('')
+		try:													#funding scenario
+			expiry1 = driver.find_element_by_xpath("//h4[@class='fully-funded']")
+			expiry2 = driver.find_element_by_xpath("//p[@class='text-discreet']")
+			for a in expiry1:
+				tmp.append(expiry1[0].text)
+			for a in expiry2:
+				tmp.append(expiry2[0].text)
+			#expiry = expiry1 + expiry2
+		except:		#	tmp.append('')
+		
 
 		#teacher_img=driver.find_element_by_xpath("//a[@class='classroom-photo js-classroom-photo-format-retina-bg']")
 		#tmp.append(teacher_img[0].text)
@@ -52,7 +61,18 @@ for url in urls:
 
 
 #****************sam addition ends
+		image_element = driver.find_elements_by_xpath("//a[@class='classroom-photo js-classroom-photo-format-retina-bg ']")
 
+		image_url = 'http:' + image_element[0].get_attribute('style').split(':')[2].split('"')[0]
+		count=1
+
+		import urllib.request
+		for img in image_url:
+
+			file_name = 'filename' + str(count) + '.png'
+			count += 1
+
+			urllib.request.urlretrieve(image_url, file_name)
 
 		header_list=['Donors','Donors still needed', 'goal','title','expiry','donation_goes','teacher_img','don_goes','pro_act']
 		data_m=data_m.reindex(columns=header_list)
