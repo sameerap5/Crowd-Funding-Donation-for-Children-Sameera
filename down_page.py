@@ -19,7 +19,7 @@ driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", c
 	# pass
 time.sleep(10)
 
-fp=open('sample_11.csv')
+fp=open('sample4.csv')
 urls=fp.readlines()
 data_m=pd.DataFrame()
 for url in urls:
@@ -63,7 +63,30 @@ for url in urls:
 			teacher_link[0].click()
 		except:
 			print(url)
-		
+
+
+		try:
+			teacher_name=driver.find_elements_by_xpath("//a[@class='teacher-link']")						#print the teacher name
+			if(len(teacher_name)!=0):
+				tmp.append(teacher_name[0].text)
+		except:
+			tmp.append('')
+
+		try:
+			loc=driver.find_elements_by_xpath("//li[@class='location']")				#location of the class not working!
+			if (len(loc) != 0):
+				tmp.append(loc[0].text)
+		except:
+			tmp.append('')
+
+
+
+		try:
+			eco=driver.find_elements_by_xpath("//li[@class='economic-descriptor']")				#leconomic-descriptor end statememtns of the class
+			tmp.append(eco[0].text)
+		except:
+			tmp.append('')
+
 
 		# try:
 		# 	teacher_img=driver.find_element_by_xpath("//a[@class='classroom-photo js-classroom-photo-format-retina-bg ']")
@@ -97,18 +120,18 @@ for url in urls:
 #sam addition ends
 
 
-		header_list = ['Donors', 'Donors still needed', 'Goal','Title','Expiry', 'Funding']
+		header_list = ['Donors', 'Donors still needed', 'Goal','Title','Expiry', 'Funding', 'Teacher Name', 'Location', 'Descriptor']
 		data_m=data_m.reindex(columns=header_list)
 		if(tmp[2]=='No Funding needed'):
-			data_m = data_m.append({'Donors': "", 'Donors still needed': "", 'Goal': tmp[0], 'Title': tmp[1], 'Expiry': "", 'Funding' : "no funding needed"},ignore_index=True)  # avalues getting added here
+			data_m = data_m.append({'Donors': "", 'Donors still needed': "", 'Goal': tmp[0], 'Title': tmp[1], 'Expiry': "", 'Funding' : "no funding needed", 'Teacher Name' : tmp[3], 'Location' : tmp[4], 'Descriptor':tmp[5]},ignore_index=True)  # avalues getting added here
 
 		elif(tmp[3]=='fully funded'):
-			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': "", 'Goal': tmp[1], 'Title': tmp[2], 'Expiry': tmp[3],'Funding' : "" },ignore_index=True)  # avalues getting added here
+			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': "", 'Goal': tmp[1], 'Title': tmp[2], 'Expiry': tmp[3],'Funding' : "",'Teacher Name' : tmp[4], 'Location' : tmp[4], 'Descriptor':tmp[6]},ignore_index=True)  # avalues getting added here
 
 		else:
-			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': tmp[1], 'Goal': tmp[2], 'Title': tmp[3], 'Expiry': tmp[4], 'Funding': ""}, ignore_index=True)   #avalues getting added here
+			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': tmp[1], 'Goal': tmp[2], 'Title': tmp[3], 'Expiry': tmp[4], 'Funding': "", 'Teacher Name' : tmp[5], 'Location' : tmp[6], 'Descriptor':tmp[7]}, ignore_index=True)   #avalues getting added here
 	except:
 		print(url)
 #time.sleep(10)
-data_m.to_csv('D:\\USF\Selenium\Datadonors.csv')
+data_m.to_csv('D:\\USF\Selenium\Datadonors1.csv')
 print(data_m)
