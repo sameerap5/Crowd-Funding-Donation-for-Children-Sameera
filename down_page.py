@@ -8,22 +8,27 @@ import csv
 import time
 import pandas as pd
 import urllib.request
+import datetime
+import shutil
+import os
 
 chromeoptions = Options()
-driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
-#chromeoptions.add_argument('headless')
-# try:
-	# driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
+#driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
+chromeoptions.add_argument('headless')
+try:
+	driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
 
-# except:
-	# pass
+except:
+	pass
 time.sleep(10)
 
 fp=open('sample4.csv')
 urls=fp.readlines()
 data_m=pd.DataFrame()
+now = datetime.datetime.now()
+current_date = now.strftime("%Y%m%d")
 for url in urls:
-	try:
+	try:																								
 		driver.get(url)
 		time.sleep(10)
 		stats = driver.find_elements_by_xpath("//ul[@class='donation-stats clearfix']")   #works perfect
@@ -38,10 +43,12 @@ for url in urls:
 			#expiry1 = driver.find_elements_by_xpath("//h4[@class='fully-funded']")
 			if(len(expiry2)!=0):
 				tmp.append(expiry2[0].text)
+				#continue
 
 			expiry3 = driver.find_elements_by_xpath("//h4[@class ='notFunded']")
 			if(len(expiry3)!=0):
 				tmp.append('No Funding needed')
+				#continue
 
 
 
@@ -61,24 +68,21 @@ for url in urls:
 	
 			teacher_link = driver.find_elements_by_xpath("//a[@class='teacher-link']")
 			teacher_link[0].click()
+			time.sleep(10)
 		except:
 			print(url)
+		
 
 
 		try:
 			teacher_name=driver.find_elements_by_xpath("//a[@class='teacher-link']")						#print the teacher name
 			if(len(teacher_name)!=0):
 				tmp.append(teacher_name[0].text)
+			else:
+				tmp.append('')
 		except:
-			tmp.append('')
-
-		try:
-			loc=driver.find_elements_by_xpath("//li[@class='location']")				#location of the class not working!
-			if (len(loc) != 0):
-				tmp.append(loc[0].text)
-		except:
-			tmp.append('')
-
+			print(url)
+		
 
 
 		try:
@@ -86,7 +90,24 @@ for url in urls:
 			tmp.append(eco[0].text)
 		except:
 			tmp.append('')
-
+			time.sleep(7)
+		
+		try:
+			loc=driver.find_elements_by_xpath("//div[@id='school-details-all']")				#location of the class not working!
+			if (len(loc) != 0):
+				tmp.append(loc[0].text)
+			else:
+				tmp.append('')
+		except:
+			print(url)
+			
+		try:
+			nbutton=driver.find_elements_by_xpath("//span[@class='school-location']")
+			print(nbutton.text)
+			tmp.append(nbutton[0].text)
+				
+		except:
+			tmp.append('')
 
 		# try:
 		# 	teacher_img=driver.find_element_by_xpath("//a[@class='classroom-photo js-classroom-photo-format-retina-bg ']")
@@ -120,18 +141,19 @@ for url in urls:
 #sam addition ends
 
 
-		header_list = ['Donors', 'Donors still needed', 'Goal','Title','Expiry', 'Funding', 'Teacher Name', 'Location', 'Descriptor']
+		header_list = ['Donors', 'Donors still needed', 'Goal','Title','Expiry', 'Teacher Name', 'Descriptor', 'Location']
 		data_m=data_m.reindex(columns=header_list)
 		if(tmp[2]=='No Funding needed'):
-			data_m = data_m.append({'Donors': "", 'Donors still needed': "", 'Goal': tmp[0], 'Title': tmp[1], 'Expiry': "", 'Funding' : "no funding needed", 'Teacher Name' : tmp[3], 'Location' : tmp[4], 'Descriptor':tmp[5]},ignore_index=True)  # avalues getting added here
-
+			data_m = data_m.append({'Donors': "", 'Donors still needed': "", 'Goal': tmp[0], 'Title': tmp[1], 'Expiry': "No funding needed",  'Teacher Name' : tmp[3], 'Descriptor':tmp[4], 'Location' :tmp[5]},ignore_index=True)  # avalues getting added here
+	
 		elif(tmp[3]=='fully funded'):
-			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': "", 'Goal': tmp[1], 'Title': tmp[2], 'Expiry': tmp[3],'Funding' : "",'Teacher Name' : tmp[4], 'Location' : tmp[4], 'Descriptor':tmp[6]},ignore_index=True)  # avalues getting added here
+			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': "", 'Goal': tmp[1], 'Title': tmp[2], 'Expiry': "fully funded",'Teacher Name' : tmp[4],  'Descriptor':tmp[5], 'Location' : tmp[6]},ignore_index=True)  # avalues getting added here
 
 		else:
-			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': tmp[1], 'Goal': tmp[2], 'Title': tmp[3], 'Expiry': tmp[4], 'Funding': "", 'Teacher Name' : tmp[5], 'Location' : tmp[6], 'Descriptor':tmp[7]}, ignore_index=True)   #avalues getting added here
+			data_m = data_m.append({'Donors': tmp[0], 'Donors still needed': tmp[1], 'Goal': tmp[2], 'Title': tmp[3], 'Expiry': tmp[4],  'Teacher Name' : tmp[6],  'Descriptor':tmp[7], 'Location' : tmp[8]}, ignore_index=True)   #avalues getting added here
 	except:
 		print(url)
 #time.sleep(10)
-data_m.to_csv('D:\\USF\Selenium\Datadonors1.csv')
-print(data_m)
+#data_m.to_csv('D:\\USF\Selenium\Datadonors1.csv')
+csvFile=os.path.join(current_date + 'Information'+'.csv')
+data_m.to_csv('D:\\USF\Selenium\\'+csvFile)	
