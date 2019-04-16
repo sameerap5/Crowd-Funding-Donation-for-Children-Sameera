@@ -1,7 +1,7 @@
 # Crowd-Funding-Donation-for-Children
 Crowd funding to help organization
 Extracts information from a crowd funding website by using Python (Pandas, Selenium) from donorschoose.org
-This project extracts information from the web about the donors and the donations made by the different p
+This project extracts information from the web about the donors and the donations made by the different people who are raising funds for the school.
 
 
 
