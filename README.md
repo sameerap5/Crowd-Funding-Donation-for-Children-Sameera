@@ -1,10 +1,12 @@
-# donors
-crowd funding to help organization
+# Crowd-Funding-Donation-for-Children
+Crowd funding to help organization
+Extracts information from a crowd funding website by using Python (Pandas, Selenium) from donorschoose.org
+This project extracts information from the web about the donors and the donations made by the different p
 
-URL: https://www.donorschoose.org/project/time-for-tables/3719662/
 
 
-links for papers:
+
+Some links for research papers:
 
 https://digital.library.txstate.edu/bitstream/handle/10877/7776/LEE-DISSERTATION-2018.pdf?sequence=1&isAllowed=y
 
