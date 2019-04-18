@@ -12,9 +12,9 @@ import datetime
 import shutil
 import os
 
-chromeoptions = Options()
-#driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
-chromeoptions.add_argument('headless')
+
+
+#chromeoptions.add_argument('headless')
 try:
 	driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
 
@@ -94,7 +94,7 @@ for url in urls:
 		
 		try:
 			loc=driver.find_elements_by_xpath("//div[@id='school-details-all']")				#location of the class not working!
-			if (len(loc) != 0):
+			if(len(loc)!= 0):
 				tmp.append(loc[0].text)
 			else:
 				tmp.append('')
