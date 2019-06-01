@@ -1,4 +1,8 @@
 #Download url from the website "https://www.donorschoose.org"
+
+# download pages from the url generated from the website
+#argv[1]="D:\\USF\Selenium\chromedriver.exe"
+
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -15,7 +19,7 @@ chromeoptions = Options()
 #driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
 #chromeoptions.add_argument('headless')
 try:
-	driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
+	driver = webdriver.Chrome(executable_path=argv[1], chrome_options=chromeoptions)
 
 except:
 	pass
@@ -45,7 +49,7 @@ while(True):
             #list.to_csv(csvFile,sep=',')
         print('total urls '+str(len(all_urls1) + len(all_urls2))+'page '+str(page_counter))
         page_counter+=1
-        if (page_counter>3):
+        if (page_counter>110):
             break
     except:
          print('')
