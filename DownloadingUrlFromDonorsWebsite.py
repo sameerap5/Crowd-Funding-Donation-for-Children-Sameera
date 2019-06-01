@@ -1,6 +1,4 @@
 #Download url from the website "https://www.donorschoose.org"
-
-# download pages from the url generated from the website
 #argv[1]="D:\\USF\Selenium\chromedriver.exe"
 
 import sys
@@ -44,9 +42,7 @@ while(True):
         for a in all_urls2:
             # print(a.get_attribute('href'))
             list_m.append(a.get_attribute('href'))
-            #b=pd.DataFrame(b)
-
-            #list.to_csv(csvFile,sep=',')
+            
         print('total urls '+str(len(all_urls1) + len(all_urls2))+'page '+str(page_counter))
         page_counter+=1
         if (page_counter>110):
