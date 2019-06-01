@@ -1,7 +1,11 @@
 
 
 # download pages from the url generated from the website
+
+#argv[1] is location of chrome driver
 #argv[1]="D:\\USF\Selenium\chromedriver.exe"
+
+# Outcome file. 
 #argv[2]='D:\\USF\Selenium\funding_status.csv'
 
 
