@@ -1,3 +1,11 @@
+
+#argv[1]="D:\\USF\Selenium\chromedriver.exe"
+#FIlename will be current_date + '.csv' and will be saved in the same location where the program will be executed 
+# The example running script will look like the following:
+# AuthorName: Sameera Prasad, Vivek Singh
+
+#################################################################################################
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -8,12 +16,13 @@ import time
 import datetime
 import shutil
 import os
+import sys
 
 chromeoptions = Options()
 #driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
 chromeoptions.add_argument('headless')
 try:
-	driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
+	driver = webdriver.Chrome(executable_path=sys.argv[1], chrome_options=chromeoptions)
 
 except:
 	pass
