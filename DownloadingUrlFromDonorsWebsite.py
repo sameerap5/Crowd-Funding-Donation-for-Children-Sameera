@@ -1,12 +1,10 @@
 #
 # Download url from the website "https://www.donorschoose.org"
 # argv[1]="D:\\USF\Selenium\chromedriver.exe"
-# The outcome.....
-
+# The outcome will be saved with the following name current_date + '.csv' in the same location where the file has been executed 
 # The example running script will look like the following:
-
 # python DownloadingUrlFromDonorsWebsite.py "D:\\USF\Selenium\chromedriver.exe" ""
-# 
+# AuthorName: Sameera Prasad, Vivek Singh
 #################################################################################################
 
 import sys
@@ -59,7 +57,6 @@ while(True):
          print('')
 
 
-#image_path='D:\\USF\\Selenium\\'				#path of the folder
 csvFile=os.path.join(current_date + '.csv')			#file being name with today's date
 #os.makedirs(csvFile)				#folder getting created with name destionation hence can be ignored
 
