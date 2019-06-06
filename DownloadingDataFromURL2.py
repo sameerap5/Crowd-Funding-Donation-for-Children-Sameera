@@ -1,12 +1,12 @@
 
 
-# download pages from the url generated from the website
+# download information from the url generated from the website
 
 #argv[1] is location of chrome driver
 #argv[1]="D:\\USF\Selenium\chromedriver.exe"
 
-# Outcome file. 
-#argv[2]='D:\\USF\Selenium\funding_status.csv'
+# Outcome file. File will be saved here 
+#argv[2]='D:\\USF\Selenium\ + CurrentDateCsvFile.csv'
 
 
 import sys
