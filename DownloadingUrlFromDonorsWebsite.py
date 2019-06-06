@@ -23,7 +23,7 @@ chromeoptions = Options()
 #driver = webdriver.Chrome(executable_path="D:\\USF\Selenium\chromedriver.exe", chrome_options=chromeoptions)
 #chromeoptions.add_argument('headless')
 try:
-	driver = webdriver.Chrome(executable_path=argv[1], chrome_options=chromeoptions)
+	driver = webdriver.Chrome(executable_path=sys.argv[1], chrome_options=chromeoptions)
 
 except:
 	pass
