@@ -1,11 +1,17 @@
 #to check the essay text message written
-import sys
-import pandas as pd
-
 #argv[1]='D:\\USF\Selenium\opendata_essays000.gz'
 #argv[2]='D:\\USF\Selenium\opendata_projects000.gz'
-#argv[3]='D:\\USF\Selenium\funding_status.csv'
+#argv[3]='D:\\USF\Selenium\funding_status.xlsx'
 
+# The outcome will be saved with the following name "funding_status.xlsx" in the same location where the file has been executed
+# The example running script will look like the following:
+# AuthorName: Sameera Prasad, Vivek Singh
+#This file will be further used for ologit regression using R/Stata to further analyse on the funding status(expired/not expired)
+
+######################################################################
+
+import sys
+import pandas as pd
 #essay
 essay = pd.read_csv(sys.argv[1], escapechar='\\', names=['_projectid', '_teacherid', 'title', 'short_description', 'need_statement', 'essay', 'thankyou_note', 'impact_letter'])
 
@@ -19,4 +25,4 @@ newdata=pd.merge(projects,essay,how='inner',on='_projectid')
 projects_2015=newdata[(newdata['date_posted'].apply(lambda x:x[0:4]) == '2015')]
 
 #save it as funding_status.csv
-newdata.to_csv(sys.argv[3], sep='\t', encoding='utf-8' )
+newdata.to_xlsx(sys.argv[3], sep='\t', encoding='utf-8' )
