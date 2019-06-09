@@ -1,3 +1,8 @@
+#this file is similar to the to ToObtainURLs2. Hence please consider the file ToObtainURL2 in the github.
+#Author: Sameera Prasad, Vivek Singh
+
+######################################################################
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
